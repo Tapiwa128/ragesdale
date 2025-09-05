@@ -267,6 +267,7 @@
             transition: var(--transition);
             position: relative;
             padding: 5px 0;
+            cursor: pointer;
         }
         
         .nav-link:hover {
@@ -939,6 +940,7 @@
             color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
             transition: var(--transition);
+            cursor: pointer;
         }
         
         .footer-links a:hover {
@@ -1320,7 +1322,7 @@
                         <div class="service-content">
                             <h3>House Cleaning</h3>
                             <p>Regular maintenance cleaning to keep your home looking its best. We customize our cleaning plans to meet your specific needs and schedule.</p>
-                            <a href="https://www.ragsdalecleaning.co.uk/#contact" class="btn" data-page="contact">Book Now</a>
+                            <a href="#contact" class="btn" data-page="contact">Book Now</a>
                         </div>
                     </div>
                     
@@ -1331,7 +1333,7 @@
                         <div class="service-content">
                             <h3>Office Cleaning</h3>
                             <p>Create a healthy work environment with our commercial cleaning services. Available during or after business hours.</p>
-                            <a href="https://www.ragsdalecleaning.co.uk/#contact" class="btn" data-page="contact">Book Now</a>
+                            <a href="#contact" class="btn" data-page="contact">Book Now</a>
                         </div>
                     </div>
                     
@@ -1342,7 +1344,7 @@
                         <div class="service-content">
                             <h3>End of Tenancy</h3>
                             <p>Deep cleaning service designed to help you get your full deposit back. Meets all landlord and agency standards.</p>
-                            <a href="https://www.ragsdalecleaning.co.uk/contact" class="btn" data-page="contact">Book Now</a>
+                            <a href="#contact" class="btn" data-page="contact">Book Now</a>
                         </div>
                     </div>
                     
@@ -1633,8 +1635,36 @@
                     
                     // Scroll to top
                     window.scrollTo(0, 0);
+                    
+                    // Update URL hash
+                    window.location.hash = targetPage;
                 });
             });
+            
+            // Handle URL hash on page load
+            function handleHash() {
+                const hash = window.location.hash.substring(1);
+                if (hash) {
+                    const targetPage = document.getElementById(hash);
+                    if (targetPage) {
+                        pages.forEach(page => page.classList.remove('active'));
+                        targetPage.classList.add('active');
+                        
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('data-page') === hash) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                }
+            }
+            
+            // Initial hash handling
+            handleHash();
+            
+            // Listen for hash changes
+            window.addEventListener('hashchange', handleHash);
             
             // Mobile menu toggle
             hamburger.addEventListener('click', function() {
